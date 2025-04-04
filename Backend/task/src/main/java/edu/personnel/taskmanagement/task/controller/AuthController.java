@@ -1,0 +1,34 @@
+package edu.personnel.taskmanagement.task.controller;
+
+import edu.personnel.taskmanagement.task.dto.AuthenticationRequest;
+import edu.personnel.taskmanagement.task.dto.AuthenticationResponse;
+import edu.personnel.taskmanagement.task.dto.RegistrationRequest;
+import edu.personnel.taskmanagement.task.service.AuthenticationService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@Controller
+@RequestMapping("/auth")
+@RequiredArgsConstructor
+public class AuthController {
+    private final AuthenticationService authenticationService;
+
+    @PostMapping("/register")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ResponseEntity<?> register(@RequestBody @Valid RegistrationRequest registrationRequest) {
+        authenticationService.register(registrationRequest);
+        return ResponseEntity.accepted().build();
+    }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody @Valid AuthenticationRequest authenticationRequest) {
+        return ResponseEntity.ok(authenticationService.authenticate(authenticationRequest));
+    }
+}
