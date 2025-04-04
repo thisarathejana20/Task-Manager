@@ -1,0 +1,27 @@
+<div class="bg-white p-4 rounded-lg shadow-md border border-gray-200">
+  <h3 class="text-lg font-bold text-gray-800">{{ task.title }}</h3>
+  <p class="text-gray-600 mt-2">{{ task.description }}</p>
+
+  <!-- Status Badge -->
+  <span
+    class="mt-4 inline-block px-3 py-1 text-white text-sm font-semibold rounded-full"
+    [ngClass]="getStatusColor()"
+  >
+    {{ task.status }}
+  </span>
+
+  <div class="flex justify-between mt-4">
+    <button
+      (click)="openUpdateModal()"
+      class="bg-blue-500 text-white px-4 py-1 rounded-md hover:bg-blue-600"
+    >
+      Update
+    </button>
+    <button
+      (click)="handleDelete()"
+      class="bg-red-500 text-white px-4 py-1 rounded-md hover:bg-red-600"
+    >
+      Delete
+    </button>
+  </div>
+</div>
