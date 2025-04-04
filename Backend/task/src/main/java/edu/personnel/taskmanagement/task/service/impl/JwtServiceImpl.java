@@ -48,6 +48,7 @@ public class JwtServiceImpl implements JwtService {
                 .claim("authorities",authorities)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + jwtExpiration))
+                .signWith(getSigningKey())
                 .compact();
     }
 
