@@ -2,6 +2,20 @@
   <!-- Page Header -->
   <div class="flex justify-between items-center mb-6">
     <h1 class="text-2xl font-bold text-gray-800">Task Management</h1>
+
+    <div>
+      <select
+        [(ngModel)]="selectedStatus"
+        (change)="filterTasksByStatus()"
+        class="border px-4 py-2 rounded-md"
+      >
+        <option value="">All Statuses</option>
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </div>
+
     <button
       (click)="openCreateModal()"
       class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
@@ -11,15 +25,19 @@
   </div>
 
   <!-- Task Grid -->
+  @if (tasks.length > 0) {
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     <app-task-card
-      *ngFor="let task of tasks"
+      *ngFor="let task of filteredTasks"
       [task]="task"
       (onUpdate)="openUpdateModal(task)"
-      (onDelete)="deleteTask(task.title)"
+      (onDelete)="deleteTask(task.id!)"
     >
     </app-task-card>
   </div>
+  }@else {
+  <p class="text-center text-gray-600">No tasks found.</p>
+  }
 
   <!-- Create Modal -->
   <app-task-modal
@@ -39,4 +57,25 @@
     (onSubmit)="updateTask($event)"
   >
   </app-task-modal>
+
+  <!-- Pagination -->
+  <div class="flex justify-center items-center space-x-4 mt-6">
+    <button
+      (click)="goToPage(currentPage - 1)"
+      [disabled]="currentPage === 0"
+      class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+    >
+      Previous
+    </button>
+    <span class="text-lg">
+      Page {{ currentPage + 1 }} of {{ totalPages }}
+    </span>
+    <button
+      (click)="goToPage(currentPage + 1)"
+      [disabled]="currentPage === totalPages - 1"
+      class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400"
+    >
+      Next
+    </button>
+  </div>
 </div>
