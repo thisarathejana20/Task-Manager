@@ -48,7 +48,7 @@ export class RegisterComponent {
         this.registerForm.reset();
         this.submitted = false;
         this.errorMessage = '';
-        this.router.navigate(['/login']);
+        this.router.navigate(['/root/login']);
       },
       error: (err) => {
         console.error('Registration failed:', err);

@@ -4,24 +4,14 @@
   <!-- Logo / Title -->
   <div class="text-xl font-bold">Task Manager</div>
 
-  <!-- Search Bar -->
-  <div class="relative w-1/3">
-    <input
-      type="text"
-      placeholder="Search tasks..."
-      class="w-full p-2 rounded-md text-black focus:outline-none"
-    />
-  </div>
-
+  @if (isAuthenticated()) {
   <!-- User Profile -->
   <div class="relative">
-    <button (click)="toggleDropdown()" class="flex items-center space-x-2">
+    <button
+      (click)="toggleDropdown()"
+      class="flex items-center space-x-2 cursor-pointer"
+    >
       <span>User</span>
-      <img
-        src="https://via.placeholder.com/40"
-        alt="User Avatar"
-        class="rounded-full w-8 h-8"
-      />
     </button>
 
     <!-- Dropdown -->
@@ -31,7 +21,10 @@
     >
       <li class="px-4 py-2 hover:bg-gray-200 cursor-pointer">Profile</li>
       <li class="px-4 py-2 hover:bg-gray-200 cursor-pointer">Settings</li>
-      <li class="px-4 py-2 hover:bg-gray-200 cursor-pointer">Logout</li>
+      <li class="px-4 py-2 hover:bg-gray-200 cursor-pointer">
+        <button (click)="logout()">Logout</button>
+      </li>
     </ul>
   </div>
+  }
 </header>

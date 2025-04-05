@@ -1,0 +1,65 @@
+<div
+  class="bg-gradient-to-r from-blue-500 via-indigo-600 to-purple-700 text-white min-h-screen flex flex-col justify-center items-center"
+>
+  <!-- Hero Section -->
+  <div class="text-center px-6 md:px-12 lg:px-24">
+    <h1 class="text-5xl font-bold leading-tight mb-6">
+      Welcome to Task Manager
+    </h1>
+    <p class="text-xl mb-8">
+      Effortlessly manage your tasks with our easy-to-use platform. Organize,
+      prioritize, and track your progress with ease.
+    </p>
+
+    <!-- Call-to-Action Buttons -->
+    <div class="flex justify-center gap-6">
+      <button
+        (click)="navigateToSignup()"
+        class="bg-white text-blue-600 px-6 py-3 rounded-md font-semibold hover:bg-gray-100 transition duration-300"
+      >
+        Get Started
+      </button>
+      <button
+        (click)="navigateToLogin()"
+        class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-md font-semibold hover:bg-white hover:text-blue-600 transition duration-300"
+      >
+        Login
+      </button>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <div class="mt-24 text-center px-6 md:px-12 lg:px-24">
+    <h2 class="text-4xl font-semibold text-white mb-8">Features</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+      <div class="bg-white text-gray-800 p-8 rounded-lg shadow-lg">
+        <h3 class="text-2xl font-bold mb-4">Organize Tasks</h3>
+        <p>
+          Keep all your tasks organized and easily accessible. Never miss an
+          important task again!
+        </p>
+      </div>
+      <div class="bg-white text-gray-800 p-8 rounded-lg shadow-lg">
+        <h3 class="text-2xl font-bold mb-4">Track Progress</h3>
+        <p>
+          Stay on top of your tasks with detailed progress tracking and status
+          updates.
+        </p>
+      </div>
+      <div class="bg-white text-gray-800 p-8 rounded-lg shadow-lg">
+        <h3 class="text-2xl font-bold mb-4">Collaborate</h3>
+        <p>
+          Share tasks with your team, assign responsibilities, and get things
+          done together.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer class="bg-blue-600 w-full py-8 mt-24">
+    <div class="text-center text-white">
+      <p class="text-lg">&copy; 2025 Task Manager. All rights reserved.</p>
+    </div>
+  </footer>
+</div>

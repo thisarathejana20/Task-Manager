@@ -44,7 +44,7 @@ export class LoginComponent {
         this.loginForm.reset();
         this.submitted = false;
         res.hasOwnProperty('token') && this.AuthService.setToken(res.token);
-        this.router.navigate(['/tasks']);
+        this.router.navigate(['/root/tasks']);
       },
       error: (err) => {
         console.error('Login failed:', err);
