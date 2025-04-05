@@ -26,7 +26,6 @@ jobs:
       - name: Build Spring Boot App
         working-directory: Backend/task
         run: |
-          cd Backend/task
           mvn clean package -DskipTests
 
       - name: Login to Docker Hub
