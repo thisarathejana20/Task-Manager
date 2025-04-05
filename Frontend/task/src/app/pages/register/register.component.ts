@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from '../../service/auth-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -48,6 +49,11 @@ export class RegisterComponent {
         this.registerForm.reset();
         this.submitted = false;
         this.errorMessage = '';
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'User registered successfully!',
+        });
         this.router.navigate(['/root/login']);
       },
       error: (err) => {
@@ -55,6 +61,11 @@ export class RegisterComponent {
         this.submitted = false;
         this.errorMessage =
           err.error?.message || 'Something went wrong. Please try again.';
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: this.errorMessage,
+        });
       },
     });
   }

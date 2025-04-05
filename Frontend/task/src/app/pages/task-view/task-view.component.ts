@@ -6,6 +6,7 @@ import { TaskModalComponent } from '../../components/task-modal/task-modal.compo
 import { TaskServiceService } from '../../service/task-service.service';
 import { PageResponse } from '../../models/PageResponse';
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-task-view',
@@ -25,6 +26,7 @@ export class TaskViewComponent implements OnInit {
   errorMessage: string | null = null;
   selectedStatus: string = ''; // Holds the selected status for filtering
   filteredTasks: Task[] = [];
+  searchQuery: string = '';
 
   constructor(private readonly taskService: TaskServiceService) {}
 
@@ -86,16 +88,36 @@ export class TaskViewComponent implements OnInit {
   }
 
   deleteTask(id: number) {
-    // Delete the task and reload the list
-    this.taskService.deleteTask(id).subscribe({
-      next: (res) => {
-        if (res) {
-          this.loadTasks(); // Reload tasks to reflect the deletion
-        } else {
-          this.errorMessage = 'Failed to delete task.'; // Handle error case
-        }
-      },
-      error: (err) => console.error('Error deleting task', err), // Reload tasks after deletion
+    // Show confirmation alert before deletion
+    Swal.fire({
+      icon: 'warning',
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this task!',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Delete the task and reload the list
+        this.taskService.deleteTask(id).subscribe({
+          next: (res) => {
+            if (res) {
+              this.loadTasks(); // Reload tasks to reflect the deletion
+            } else {
+              this.errorMessage = 'Failed to delete task.'; // Handle error case
+            }
+          },
+          error: (err) => console.error('Error deleting task', err), // Reload tasks after deletion
+        });
+      } else {
+        // Show cancellation alert
+        Swal.fire({
+          icon: 'info',
+          title: 'Cancelled',
+          text: 'Your task is safe!',
+        });
+      }
     });
   }
 
@@ -108,5 +130,22 @@ export class TaskViewComponent implements OnInit {
     } else {
       this.filteredTasks = this.tasks;
     }
+  }
+
+  searchTasks() {
+    // Filter tasks based on the search query
+    this.filteredTasks = this.filterTasks(this.tasks);
+  }
+
+  filterTasks(tasks: Task[]) {
+    return tasks.filter((task) => {
+      const matchesSearchQuery = task.title
+        .toLowerCase()
+        .includes(this.searchQuery.toLowerCase());
+      const matchesStatus = this.selectedStatus
+        ? task.status === this.selectedStatus
+        : true;
+      return matchesSearchQuery && matchesStatus;
+    });
   }
 }
