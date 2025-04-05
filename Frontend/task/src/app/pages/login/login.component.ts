@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from '../../service/auth-service.service';
-import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, CommonModule, RouterLink],
@@ -45,7 +45,7 @@ export class LoginComponent {
         this.loginForm.reset();
         this.submitted = false;
         res.hasOwnProperty('token') && this.AuthService.setToken(res.token);
-        swal.fire({
+        Swal.fire({
           title: 'Login Successful',
           icon: 'success',
           showConfirmButton: false,
@@ -56,7 +56,7 @@ export class LoginComponent {
       error: (err) => {
         console.error('Login failed:', err);
         this.submitted = false;
-        swal.fire({
+        Swal.fire({
           title: 'Login Failed',
           icon: 'error',
           showConfirmButton: false,

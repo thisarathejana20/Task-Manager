@@ -1,6 +1,11 @@
-FROM node:18-alpine as build
+FROM node:18-alpine AS build
+
 WORKDIR /app
-COPY Frontend/task/package.json ./
+
+COPY Frontend/task/package*.json ./
+
 RUN npm install
-COPY . .
+
+COPY Frontend/task/ ./
+
 RUN npm run build
