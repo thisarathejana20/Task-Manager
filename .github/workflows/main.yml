@@ -58,7 +58,7 @@ jobs:
       - name: Build and Push Frontend Image
         uses: docker/build-push-action@v2
         with:
-          context: ./Frontend/task
+          context: .
           file: ./Frontend/task/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/task-manager:latest
