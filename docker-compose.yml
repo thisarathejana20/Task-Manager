@@ -11,7 +11,37 @@ services:
       MYSQL_PASSWORD: password
     volumes:
       - mysql-data:/var/lib/mysql
+    networks:
+      - task-network
+
+  backend:
+    container_name: task_backend
+    build:
+      context: .
+      dockerfile: Backend/task/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - mysql
+    networks:
+      - task-network
+
+  frontend:
+    container_name: task_frontend
+    build:
+      context: .
+      dockerfile: Frontend/task/Dockerfile
+    ports:
+      - "4200:4200"
+    networks:
+      - task-network
 
 volumes:
   mysql-data:
     driver: local
+
+networks:
+  task-network:
+    driver: bridge
