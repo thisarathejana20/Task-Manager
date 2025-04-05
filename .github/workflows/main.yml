@@ -20,13 +20,13 @@ jobs:
           distribution: 'corretto'
 
       - name: Backend Unit Tests
-        working-directory: backend/task
+        working-directory: Backend/task
         run: mvn -B test --file pom.xml
 
       - name: Build Spring Boot App
-        working-directory: backend/task
+        working-directory: Backend/task
         run: |
-          cd backend/task
+          cd Backend/task
           mvn clean package
 
       - name: Login to Docker Hub
@@ -49,17 +49,17 @@ jobs:
           node-version: '18'
 
       - name: Install Angular Dependencies
-        working-directory: ./frontend/task
+        working-directory: ./Frontend/task
         run: npm install
 
       - name: Build Angular App
-        working-directory: ./frontend/task
+        working-directory: ./Frontend/task
         run: npm run build -- --configuration production
 
       - name: Build and Push Frontend Image
         uses: docker/build-push-action@v2
         with:
-          context: ./frontend/task
-          file: ./frontend/task/Dockerfile
+          context: ./Frontend/task
+          file: ./Frontend/task/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/angular-github-actions:latest
