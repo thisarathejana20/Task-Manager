@@ -37,10 +37,10 @@ jobs:
       - name: Build and Push Backend Image
         uses: docker/build-push-action@v2
         with:
-          context: ./backend
-          file: ./backend/Dockerfile
+          context: ./Backend
+          file: ./Backend/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/spring-github-actions:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/Task-Manager:latest
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -61,4 +61,4 @@ jobs:
           context: ./Frontend/task
           file: ./Frontend/task/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/angular-github-actions:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/Task-Manager:latest
