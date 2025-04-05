@@ -1,8 +1,8 @@
-FROM openjdk:21-jdk-alpine
+FROM openjdk:23-jdk
 
 WORKDIR /app
 
-COPY target/*.jar app.jar
+COPY Backend/task/target/*.jar app.jar
 
 EXPOSE 8080
 
