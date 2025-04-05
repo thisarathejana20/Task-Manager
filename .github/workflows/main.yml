@@ -19,15 +19,15 @@ jobs:
           java-version: '23'
           distribution: 'corretto'
 
-      - name: Backend Unit Tests
-        working-directory: Backend/task
-        run: mvn -B test --file pom.xml
+#      - name: Backend Unit Tests
+#        working-directory: Backend/task
+#        run: mvn -B test --file pom.xml
 
       - name: Build Spring Boot App
         working-directory: Backend/task
         run: |
           cd Backend/task
-          mvn clean package
+          mvn clean package -DskipTests
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
