@@ -20,11 +20,11 @@ jobs:
           distribution: 'corretto'
 
       - name: Backend Unit Tests
-        working-directory: ./backend
+        working-directory: ./backend/task
         run: mvn -B test --file pom.xml
 
       - name: Build Spring Boot App
-        working-directory: ./backend
+        working-directory: ./backend/task
         run: |
           mvn clean
           mvn -B package --file pom.xml
