@@ -6,7 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthServiceService } from '../../service/auth-service.service';
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, CommonModule, RouterLink],
@@ -17,7 +18,11 @@ export class LoginComponent {
   loginForm: FormGroup;
   submitted = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly AuthService: AuthServiceService,
+    private readonly router: Router
+  ) {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -32,7 +37,20 @@ export class LoginComponent {
     this.submitted = true;
     if (this.loginForm.invalid) return;
 
-    console.log('Login Successful', this.loginForm.value);
-    // Perform authentication logic
+    const user = this.loginForm.value;
+    this.AuthService.login(user).subscribe({
+      next: (res) => {
+        console.log('Login successful!');
+        this.loginForm.reset();
+        this.submitted = false;
+        res.hasOwnProperty('token') && this.AuthService.setToken(res.token);
+        this.router.navigate(['/tasks']);
+      },
+      error: (err) => {
+        console.error('Login failed:', err);
+        this.submitted = false;
+        alert(err.error?.message || 'Something went wrong. Please try again.');
+      },
+    });
   }
 }

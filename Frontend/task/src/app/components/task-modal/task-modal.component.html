@@ -1,12 +1,12 @@
-<!-- Modal Background -->
 <div
-  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50"
+  class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
 >
   <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-    <h2 class="text-xl font-bold mb-4">Update Task</h2>
+    <h2 class="text-xl font-bold mb-4">
+      {{ mode === "create" ? "Add New Task" : "Update Task" }}
+    </h2>
 
-    <form [formGroup]="updateForm" (ngSubmit)="submitForm()">
-      <!-- Title -->
+    <form [formGroup]="taskForm" (ngSubmit)="submitForm()">
       <div class="mb-3">
         <label class="block text-gray-600">Title</label>
         <input
@@ -16,7 +16,6 @@
         />
       </div>
 
-      <!-- Description -->
       <div class="mb-3">
         <label class="block text-gray-600">Description</label>
         <textarea
@@ -25,7 +24,6 @@
         ></textarea>
       </div>
 
-      <!-- Status -->
       <div class="mb-3">
         <label class="block text-gray-600">Status</label>
         <select formControlName="status" class="w-full p-2 border rounded-md">
@@ -35,7 +33,6 @@
         </select>
       </div>
 
-      <!-- Buttons -->
       <div class="flex justify-between mt-4">
         <button
           type="button"
@@ -48,7 +45,7 @@
           type="submit"
           class="bg-blue-500 text-white px-4 py-2 rounded-md"
         >
-          Save Changes
+          {{ mode === "create" ? "Add Task" : "Save Changes" }}
         </button>
       </div>
     </form>
