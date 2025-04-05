@@ -40,7 +40,7 @@ jobs:
           context: ./Backend
           file: ./Backend/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/Task-Manager:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/task-manager:latest
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -61,4 +61,4 @@ jobs:
           context: ./Frontend/task
           file: ./Frontend/task/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/Task-Manager:latest
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/task-manager:latest
